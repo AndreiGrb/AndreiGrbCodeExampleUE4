@@ -10,5 +10,7 @@ UCLASS()
 class ANDREIGRBCODEEXAMPLE_API AAGCESanboxGM : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+protected:
+	virtual void HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer) override;
 };

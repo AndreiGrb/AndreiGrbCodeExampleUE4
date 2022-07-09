@@ -3,3 +3,7 @@
 
 #include "AGCESanboxGM.h"
 
+void AAGCESanboxGM::HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer)
+{
+	
+}
