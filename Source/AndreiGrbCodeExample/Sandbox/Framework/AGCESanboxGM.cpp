@@ -4,6 +4,7 @@
 #include "AGCESanboxGM.h"
 
 #include "AndreiGrbCodeExample/Sandbox/Miscellaneous/AGCEPlayerStartZone.h"
+#include "AndreiGrbCodeExample/Sandbox/Player/AGCEPlayer.h"
 #include "GameFramework/PlayerStart.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -51,13 +52,15 @@ void AAGCESanboxGM::SpawnNewPlayer(APlayerController* NewPlayer)
 {
 	bIsSpawnPointSet = false;
 
+	const int32 PlayerNumber = PlayerControllers.Num();
+
 	//if less or equal 4 players, get SpawnPoint at specific Player Start
 	if(PlayerControllers.Num() <= 4)
 	{
-		const FString PlayerNumber = FString::FromInt(PlayerControllers.Num());
-		if(const AActor* FoundPlayerStart = FindPlayerStart(NewPlayer, PlayerNumber))
+		const FString PlayerNumberAsString = FString::FromInt(PlayerNumber);
+		if(const AActor* FoundPlayerStart = FindPlayerStart(NewPlayer, PlayerNumberAsString))
 		{
-			if(Cast<APlayerStart>(FoundPlayerStart)->PlayerStartTag.ToString().Equals(PlayerNumber))
+			if(Cast<APlayerStart>(FoundPlayerStart)->PlayerStartTag.ToString().Equals(PlayerNumberAsString))
 			{
 				SetSpawnPoint(GetSpawnPointFromActor(FoundPlayerStart));
 			}
@@ -84,6 +87,13 @@ void AAGCESanboxGM::SpawnNewPlayer(APlayerController* NewPlayer)
 	{
 		NewPlayer->SetPawn(SpawnDefaultPawnAtTransform(NewPlayer, SpawnPoint));
 		NewPlayer->Possess(NewPlayer->GetPawn());
+		
+		if(AAGCEPlayer* PlayerCharacter = Cast<AAGCEPlayer>(NewPlayer->GetPawn()))
+		{
+			PlayerCharacter->PlayerNumber = PlayerNumber;
+			if(!IsRunningDedicatedServer())	
+				PlayerCharacter->SetPlayerColor(); //set player color if standalone or listen server
+		}
 	}
 }
 

@@ -19,6 +19,9 @@ public:
 
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+protected:
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps) const override;
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -66,4 +69,11 @@ private:
 
 	UFUNCTION()
 	void JumpReleased();
+
+public:
+	UPROPERTY(Replicated, BlueprintReadOnly)
+	int32 PlayerNumber = 0;
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SetPlayerColor();
 };

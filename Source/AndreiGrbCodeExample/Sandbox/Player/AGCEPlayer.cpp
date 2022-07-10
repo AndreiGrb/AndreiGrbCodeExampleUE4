@@ -7,6 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Net/UnrealNetwork.h"
 
 
 AAGCEPlayer::AAGCEPlayer()
@@ -36,6 +37,13 @@ void AAGCEPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AAGCEPlayer::JumpPressed);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &AAGCEPlayer::JumpReleased);
+}
+
+void AAGCEPlayer::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AAGCEPlayer, PlayerNumber);
 }
 
 void AAGCEPlayer::GamepadTurn(const float Value)
