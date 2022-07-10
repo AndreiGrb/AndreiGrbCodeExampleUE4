@@ -20,6 +20,9 @@ class ANDREIGRBCODEEXAMPLE_API UAGCEDebugWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
+protected:
+	virtual void NativeConstruct() override;
+	
 private:
 	UFUNCTION()
 	void OpenDebugMenu();

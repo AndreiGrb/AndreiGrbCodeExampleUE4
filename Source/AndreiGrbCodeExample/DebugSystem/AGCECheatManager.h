@@ -20,7 +20,7 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UAGCEDebugWidget> DebugButtonClass = nullptr;
+	TSubclassOf<UAGCEDebugWidget> DebugWidgetClass = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	TSoftClassPtr<AActor> DebugRPCActorClass = nullptr;
@@ -37,8 +37,8 @@ public:
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	UAGCEDebugWidget* DebugButtonWidget = nullptr;
+	UAGCEDebugWidget* DebugWidgetPtr = nullptr;
 
 public:
-	FORCEINLINE UAGCEDebugWidget* GetDebugButtonWidget() const { return DebugButtonWidget; }
+	FORCEINLINE UAGCEDebugWidget* GetDebugButtonWidget() const { return DebugWidgetPtr; }
 };

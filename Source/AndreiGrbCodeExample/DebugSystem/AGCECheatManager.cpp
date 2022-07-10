@@ -25,17 +25,17 @@ void UAGCECheatManager::InitCheatManager()
 
 void UAGCECheatManager::CreateDebugWidget()
 {
-	if (!DebugButtonClass)
+	if (!DebugWidgetClass)
 	{
-		UE_LOG(LogTemp, Error, TEXT("UAGCECheatManager::CreateDebugWidget() DebugButtonClass = nullptr"));
+		UE_LOG(LogTemp, Error, TEXT("UAGCECheatManager::CreateDebugWidget() DebugWidgetClass = nullptr"));
 		return;
 	}
 
-	if(!IsValid(DebugButtonWidget))
-		DebugButtonWidget = CreateWidget<UAGCEDebugWidget>(GetOuterAPlayerController(), DebugButtonClass);
+	if(!IsValid(DebugWidgetPtr))
+		DebugWidgetPtr = CreateWidget<UAGCEDebugWidget>(GetOuterAPlayerController(), DebugWidgetClass);
 
-	if(DebugButtonWidget)
+	if(DebugWidgetPtr)
 	{
-		DebugButtonWidget->AddToViewport(DebugWidgetZOrder);
+		DebugWidgetPtr->AddToViewport(DebugWidgetZOrder);
 	}
 }

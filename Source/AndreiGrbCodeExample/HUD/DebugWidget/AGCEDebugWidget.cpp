@@ -8,7 +8,21 @@
 #include "AndreiGrbCodeExample/DebugSystem/AGCEDebugLogic.h"
 #include "AndreiGrbCodeExample/DebugSystem/Structures/AGCEDebugButtonStruct.h"
 #include "Components/HorizontalBox.h"
+#include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
+
+void UAGCEDebugWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	Text_FPS->SetVisibility(ESlateVisibility::Hidden);
+	Text_Ping->SetVisibility(ESlateVisibility::Hidden);
+
+	FOnInputAction Callback;
+	Callback.BindUFunction(this, "OpenDebugMenu");
+	
+	ListenForInputAction("OpenDebugMenu", IE_Pressed, true, Callback);
+}
 
 void UAGCEDebugWidget::OpenDebugMenu()
 {

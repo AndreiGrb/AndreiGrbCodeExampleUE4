@@ -33,7 +33,7 @@ public:
 	FORCEINLINE int32 GetHorizontalBoxOrder() const { return HorizontalBoxOrder; }
 
 private:
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
 	UScrollBox* ScrollBox_ForButtons = nullptr;
 
 public:
