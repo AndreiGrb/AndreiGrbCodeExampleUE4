@@ -38,6 +38,15 @@ void AAGCESanboxGM::HandleStartingNewPlayer_Implementation(APlayerController* Ne
 	}
 }
 
+void AAGCESanboxGM::Logout(AController* Exiting)
+{
+	Super::Logout(Exiting);
+
+	APlayerController* ExitingPlayer = Cast<APlayerController>(Exiting);
+
+	PlayerControllers.Remove(Cast<APlayerController>(ExitingPlayer));
+}
+
 void AAGCESanboxGM::SpawnNewPlayer(APlayerController* NewPlayer)
 {
 	bIsSpawnPointSet = false;

@@ -18,6 +18,8 @@ protected:
 	
 	virtual void HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer) override;
 
+	virtual void Logout(AController* Exiting) override;
+
 private:
 	void SpawnNewPlayer(APlayerController* NewPlayer);
 
