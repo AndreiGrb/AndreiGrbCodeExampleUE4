@@ -12,6 +12,9 @@ AAGCEPlayerStartZone::AAGCEPlayerStartZone()
 	ConstructorHelpers::FObjectFinder<UTexture2D> PlayerStartTextureObject(TEXT("/Engine/EditorResources/S_Player"));
 	if(PlayerStartTextureObject.Succeeded())
 		GetSpriteComponent()->Sprite = PlayerStartTextureObject.Object;
+
+	SetActorEnableCollision(false);
+	GetCollisionComponent()->SetCollisionProfileName("NoCollision");
 }
 
 FVector AAGCEPlayerStartZone::GetRandomSpawnPointInZone() const
