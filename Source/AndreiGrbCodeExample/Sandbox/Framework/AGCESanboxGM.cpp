@@ -74,7 +74,8 @@ void AAGCESanboxGM::SpawnNewPlayer(APlayerController* NewPlayer)
 	//if more then 4 players and no Player Starting Zones exist, get SpawnPoint at regular Player Start
 	else if(const AActor* FoundPlayerStart = FindPlayerStart(NewPlayer))
 	{
-		SetSpawnPoint(GetSpawnPointFromActor(FoundPlayerStart));
+		if(!bIsSpawnPointSet)	
+			SetSpawnPoint(GetSpawnPointFromActor(FoundPlayerStart));
 	}
 
 	if(!bIsSpawnPointSet)
