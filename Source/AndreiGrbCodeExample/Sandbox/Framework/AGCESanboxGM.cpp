@@ -4,6 +4,7 @@
 #include "AGCESanboxGM.h"
 
 #include "AndreiGrbCodeExample/Sandbox/Miscellaneous/AGCEPlayerStartZone.h"
+#include "GameFramework/PlayerStart.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
@@ -39,7 +40,7 @@ void AAGCESanboxGM::HandleStartingNewPlayer_Implementation(APlayerController* Ne
 
 void AAGCESanboxGM::SpawnNewPlayer(APlayerController* NewPlayer)
 {
-	FTransform SpawnPoint;
+	bIsSpawnPointSet = false;
 
 	//if less or equal 4 players, get SpawnPoint at specific Player Start
 	if(PlayerControllers.Num() <= 4)
@@ -47,31 +48,24 @@ void AAGCESanboxGM::SpawnNewPlayer(APlayerController* NewPlayer)
 		const FString PlayerNumber = FString::FromInt(PlayerControllers.Num());
 		if(const AActor* FoundPlayerStart = FindPlayerStart(NewPlayer, PlayerNumber))
 		{
-			SpawnPoint = GetSpawnPointFromActor(FoundPlayerStart);
-		}
-		//if couldn't found specific Player Start, find some random Player Start
-		else if(const AActor* FoundRandomPlayerStart = FindPlayerStart(NewPlayer))
-		{
-			SpawnPoint = GetSpawnPointFromActor(FoundRandomPlayerStart);
-		}
-		//if no Player Start exist, try finding Player Starting Zone
-		else if(PlayerStartingZones.Num() > 0)
-		{
-			SpawnPoint = GetSpawnPointFromStartingZone();
+			if(Cast<APlayerStart>(FoundPlayerStart)->PlayerStartTag.ToString().Equals(PlayerNumber))
+			{
+				SetSpawnPoint(GetSpawnPointFromActor(FoundPlayerStart));
+			}
 		}
 	}
 	//if more then 4 players, get SpawnPoint at random Player Starting Zone
-	else if(PlayerStartingZones.Num() > 0)
+	if(!bIsSpawnPointSet && PlayerStartingZones.Num() > 0)
 	{
-		SpawnPoint = GetSpawnPointFromStartingZone();
+		SetSpawnPoint(GetSpawnPointFromStartingZone());
 	}
 	//if more then 4 players and no Player Starting Zones exist, get SpawnPoint at regular Player Start
 	else if(const AActor* FoundPlayerStart = FindPlayerStart(NewPlayer))
 	{
-		SpawnPoint = GetSpawnPointFromActor(FoundPlayerStart);
+		SetSpawnPoint(GetSpawnPointFromActor(FoundPlayerStart));
 	}
 
-	if(!SpawnPoint.IsValid())
+	if(!bIsSpawnPointSet)
 	{
 		UE_LOG(LogTemp, Error, TEXT("AAGCESanboxGM::HandleStartingNewPlayer: Couldn't found player start!"));
 		return;

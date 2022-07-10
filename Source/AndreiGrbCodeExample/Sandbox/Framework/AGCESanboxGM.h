@@ -31,4 +31,14 @@ private:
 	
 	UPROPERTY()
 	TArray<AAGCEPlayerStartZone*> PlayerStartingZones = {};
+
+private:
+	FTransform SpawnPoint;
+	bool bIsSpawnPointSet = false;
+
+	void SetSpawnPoint(const FTransform NewSpawnPoint)
+	{
+		SpawnPoint = NewSpawnPoint;
+		bIsSpawnPointSet = true;
+	}
 };
