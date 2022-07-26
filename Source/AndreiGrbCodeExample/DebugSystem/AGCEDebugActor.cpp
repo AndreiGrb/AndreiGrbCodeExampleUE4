@@ -33,7 +33,7 @@ void AAGCEDebugActor::BeginPlay()
 	}
 }
 
-void AAGCEDebugActor::LoadDebugLogicListServer_Implementation(TSoftObjectPtr<UDataTable> DataTableToLoad)
+void AAGCEDebugActor::LoadDebugLogicListServer_Implementation(const TSoftObjectPtr<UDataTable> & DataTableToLoad)
 {
 	if(DataTableToLoad.IsNull())
 		return;
@@ -48,7 +48,7 @@ void AAGCEDebugActor::LoadDebugLogicListServer_Implementation(TSoftObjectPtr<UDa
 		if(!DebugButton)
 		{
 			UE_LOG(LogTemp, Error,
-			       TEXT("AAGCEDebugActor::LoadDebugLogicListServer: DataTableToLoad is not FDebugButtonStruct type"));
+				   TEXT("AAGCEDebugActor::LoadDebugLogicListServer: DataTableToLoad is not FDebugButtonStruct type"));
 			return;
 		}
 

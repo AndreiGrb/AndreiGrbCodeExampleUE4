@@ -21,5 +21,5 @@ protected:
 
 public:
 	UFUNCTION(Server, Reliable)
-	void LoadDebugLogicListServer(TSoftObjectPtr<UDataTable> DataTableToLoad);
+	void LoadDebugLogicListServer(const TSoftObjectPtr<UDataTable> & DataTableToLoad);
 };
