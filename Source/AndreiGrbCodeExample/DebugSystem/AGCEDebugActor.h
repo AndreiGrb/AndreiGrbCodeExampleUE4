@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "AGCEDebugActor.generated.h"
 
+class UDataTable;
 
 UCLASS()
 class ANDREIGRBCODEEXAMPLE_API AAGCEDebugActor : public AActor
@@ -17,4 +18,8 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+public:
+	UFUNCTION(Server, Reliable)
+	void LoadDebugLogicListServer(TSoftObjectPtr<UDataTable> DataTableToLoad);
 };
