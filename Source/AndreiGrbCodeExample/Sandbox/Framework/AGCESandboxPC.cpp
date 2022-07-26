@@ -15,10 +15,10 @@ void AAGCESandboxPC::BeginPlay()
 {
 	Super::BeginPlay();
 
+	EnableCheats();
+	
 	if(IsLocalController())
 	{
-		EnableCheats();
-
 		if (IsValid(CheatManager))
 		{
 			if(UAGCEDebugManager* DebugManager = Cast<UAGCEDebugManager>(CheatManager))
