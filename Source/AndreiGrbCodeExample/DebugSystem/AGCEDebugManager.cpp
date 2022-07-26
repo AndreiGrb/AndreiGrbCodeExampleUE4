@@ -15,7 +15,7 @@ void UAGCEDebugManager::InitCheatManager()
 		FActorSpawnParameters ActorSpawnParam;
 		ActorSpawnParam.Owner = GetOuterAPlayerController();
 
-		GetWorld()->SpawnActor<AAGCEDebugActor>(DebugActorClass, FVector(), FRotator(), ActorSpawnParam);
+		DebugActorPtr = GetWorld()->SpawnActor<AAGCEDebugActor>(DebugActorClass, FVector(), FRotator(), ActorSpawnParam);
 	}
 }
 

@@ -38,8 +38,12 @@ public:
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	AAGCEDebugActor* DebugActorPtr = nullptr;
+	
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UAGCEDebugWidget* DebugWidgetPtr = nullptr;
 
 public:
+	FORCEINLINE AAGCEDebugActor* GetDebugActor() const { return DebugActorPtr; }
 	FORCEINLINE UAGCEDebugWidget* GetDebugButtonWidget() const { return DebugWidgetPtr; }
 };

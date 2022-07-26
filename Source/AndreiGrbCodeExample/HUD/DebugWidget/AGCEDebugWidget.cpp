@@ -5,7 +5,9 @@
 
 #include "AGCEDebugButton.h"
 #include "AGCEDebugScrollBox.h"
+#include "AndreiGrbCodeExample/DebugSystem/AGCEDebugActor.h"
 #include "AndreiGrbCodeExample/DebugSystem/AGCEDebugLogic.h"
+#include "AndreiGrbCodeExample/DebugSystem/AGCEDebugManager.h"
 #include "AndreiGrbCodeExample/DebugSystem/Structures/AGCEDebugButtonStruct.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Components/HorizontalBox.h"
@@ -16,6 +18,13 @@ void UAGCEDebugWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	if(UCheatManager* CheatManager = GetOwningPlayer()->CheatManager)
+	{
+		if(UAGCEDebugManager* DebugManager = Cast<UAGCEDebugManager>(CheatManager))
+			if(IsValid(DebugManager->GetDebugActor()))
+				SetIsEnabled(false);
+	}
+	
 	Text_Title->SetVisibility(ESlateVisibility::Hidden);
 	Text_FPS->SetVisibility(ESlateVisibility::Hidden);
 	Text_Ping->SetVisibility(ESlateVisibility::Hidden);
