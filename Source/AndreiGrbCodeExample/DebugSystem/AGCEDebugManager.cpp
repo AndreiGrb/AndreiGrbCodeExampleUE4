@@ -3,23 +3,19 @@
 
 #include "AGCEDebugManager.h"
 
+#include "AGCEDebugActor.h"
 #include "AndreiGrbCodeExample/HUD/DebugWidget/AGCEDebugWidget.h"
 
 void UAGCEDebugManager::InitCheatManager()
 {
 	Super::InitCheatManager();
 
-	if(GetOuterAPlayerController()->HasAuthority())
+	if(GetOuterAPlayerController()->HasAuthority() && DebugActorClass)
 	{
-		if(!DebugRPCActorClass.IsNull() && PlayerControllerForRPC.Get())
-		{
-			UClass* LoadedRPCActorClass = DebugRPCActorClass.LoadSynchronous();
+		FActorSpawnParameters ActorSpawnParam;
+		ActorSpawnParam.Owner = GetOuterAPlayerController();
 
-			FActorSpawnParameters ActorSpawnParam;
-			ActorSpawnParam.Owner = GetOuterAPlayerController();
-
-			GetWorld()->SpawnActor<AActor>(LoadedRPCActorClass, FVector(), FRotator(), ActorSpawnParam);
-		}
+		GetWorld()->SpawnActor<AAGCEDebugActor>(DebugActorClass, FVector(), FRotator(), ActorSpawnParam);
 	}
 }
 

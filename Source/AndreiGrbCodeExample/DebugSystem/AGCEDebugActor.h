@@ -4,15 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "AGCEDebugRPCSandboxActor.generated.h"
+#include "AGCEDebugActor.generated.h"
 
 
 UCLASS()
-class ANDREIGRBCODEEXAMPLE_API AAGCEDebugRPCSandboxActor : public AActor
+class ANDREIGRBCODEEXAMPLE_API AAGCEDebugActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	AAGCEDebugRPCSandboxActor();
-	
+	AAGCEDebugActor();
+
+protected:
+	virtual void BeginPlay() override;
 };

@@ -6,6 +6,7 @@
 #include "GameFramework/CheatManager.h"
 #include "AGCEDebugManager.generated.h"
 
+class AAGCEDebugActor;
 class UAGCEDebugWidget;
 /**
  * 
@@ -23,7 +24,7 @@ private:
 	TSubclassOf<UAGCEDebugWidget> DebugWidgetClass = nullptr;
 
 	UPROPERTY(EditAnywhere)
-	TSoftClassPtr<AActor> DebugRPCActorClass = nullptr;
+	TSubclassOf<AAGCEDebugActor> DebugActorClass = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	TSoftClassPtr<APlayerController> PlayerControllerForRPC = nullptr;
