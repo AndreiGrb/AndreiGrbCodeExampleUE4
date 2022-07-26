@@ -25,11 +25,14 @@ protected:
 	
 private:
 	UFUNCTION()
-	void OpenDebugMenu();
+	void ToggleDebugMenu();
 
 	void RemoveDebugList();
 
 private:
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
+	UTextBlock* Text_Title = nullptr;
+	
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
 	UHorizontalBox* HBox_DebugButtons = nullptr;
 

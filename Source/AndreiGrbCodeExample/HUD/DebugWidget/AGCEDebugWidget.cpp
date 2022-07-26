@@ -7,6 +7,7 @@
 #include "AGCEDebugScrollBox.h"
 #include "AndreiGrbCodeExample/DebugSystem/AGCEDebugLogic.h"
 #include "AndreiGrbCodeExample/DebugSystem/Structures/AGCEDebugButtonStruct.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Components/HorizontalBox.h"
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
@@ -15,17 +16,21 @@ void UAGCEDebugWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	Text_Title->SetVisibility(ESlateVisibility::Hidden);
 	Text_FPS->SetVisibility(ESlateVisibility::Hidden);
 	Text_Ping->SetVisibility(ESlateVisibility::Hidden);
 
 	FOnInputAction Callback;
-	Callback.BindUFunction(this, "OpenDebugMenu");
+	Callback.BindUFunction(this, "ToggleDebugMenu");
 	
-	ListenForInputAction("OpenDebugMenu", IE_Pressed, true, Callback);
+	ListenForInputAction("ToggleDebugMenu", IE_Pressed, true, Callback);
 }
 
-void UAGCEDebugWidget::OpenDebugMenu()
+void UAGCEDebugWidget::ToggleDebugMenu()
 {
+	APlayerController* OwningPlayer = GetOwningPlayer();
+	
+	//Open menu
 	if (HBox_DebugButtons->GetAllChildren().Num() == 0)
 	{
 		TArray<TSoftClassPtr<APlayerController>> SoftPCClassArray;
@@ -33,7 +38,7 @@ void UAGCEDebugWidget::OpenDebugMenu()
 
 		for (TSoftClassPtr<APlayerController>& SoftPCClass : SoftPCClassArray)
 		{
-			if (SoftPCClass.Get() == GetOwningPlayer()->GetClass())
+			if (SoftPCClass.Get() == OwningPlayer->GetClass())
 			{
 				if (TSoftObjectPtr<UDataTable>* SoftDataTable = DataTablesForButtons.Find(SoftPCClass))
 				{
@@ -49,10 +54,20 @@ void UAGCEDebugWidget::OpenDebugMenu()
 		}
 
 		CreateNextButtonList(ChosenDataTable);
+		
+		OwningPlayer->SetShowMouseCursor(true);
+		UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx(OwningPlayer, this);
+
+		Text_Title->SetVisibility(ESlateVisibility::HitTestInvisible);
 	}
 	else
-	{
+	{ //Close menu
 		RemoveDebugList();
+
+		OwningPlayer->SetShowMouseCursor(false);
+		OwningPlayer->SetInputMode(FInputModeGameOnly());
+
+		Text_Title->SetVisibility(ESlateVisibility::Hidden);
 	}
 }
 

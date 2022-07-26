@@ -57,7 +57,7 @@ void UAGCEDebugLogicData::ActivateDebugLogic_Implementation()
 			if (!FPSTextBlock)
 				return;
 
-			FPSTextBlock->SetVisibility(ESlateVisibility::Visible);
+			FPSTextBlock->SetVisibility(ESlateVisibility::HitTestInvisible);
 
 			break;
 		}
@@ -67,12 +67,13 @@ void UAGCEDebugLogicData::ActivateDebugLogic_Implementation()
 			if (!PingTextBlock)
 				return;
 
-			PingTextBlock->SetVisibility(ESlateVisibility::Visible);
+			PingTextBlock->SetVisibility(ESlateVisibility::HitTestInvisible);
 
 			break;
 		}
 	}
 
+	UpdateText();
 	GetWorld()->GetTimerManager().SetTimer(UpdateTextTimer, this, &UAGCEDebugLogicData::UpdateText, TimerTime, true);
 }
 

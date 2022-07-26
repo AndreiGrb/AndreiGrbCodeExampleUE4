@@ -15,13 +15,18 @@ void AAGCESandboxPC::BeginPlay()
 {
 	Super::BeginPlay();
 
-	EnableCheats();
-
-	if (IsValid(CheatManager) && IsLocalController())
+	if(IsLocalController())
 	{
-		if(UAGCEDebugManager* DebugManager = Cast<UAGCEDebugManager>(CheatManager))
+		EnableCheats();
+
+		if (IsValid(CheatManager))
 		{
-			DebugManager->CreateDebugWidget();
+			if(UAGCEDebugManager* DebugManager = Cast<UAGCEDebugManager>(CheatManager))
+			{
+				DebugManager->CreateDebugWidget();
+			}
 		}
+		
+		SetInputMode(FInputModeGameOnly());
 	}
 }
