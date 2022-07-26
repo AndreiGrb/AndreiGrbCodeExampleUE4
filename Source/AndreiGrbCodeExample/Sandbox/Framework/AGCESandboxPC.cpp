@@ -3,7 +3,7 @@
 
 #include "AGCESandboxPC.h"
 
-#include "AndreiGrbCodeExample/DebugSystem/AGCECheatManager.h"
+#include "AndreiGrbCodeExample/DebugSystem/AGCEDebugManager.h"
 
 
 AAGCESandboxPC::AAGCESandboxPC()
@@ -19,7 +19,9 @@ void AAGCESandboxPC::BeginPlay()
 
 	if (IsValid(CheatManager) && IsLocalController())
 	{
-		UAGCECheatManager* AGCECheatManager = Cast<UAGCECheatManager>(CheatManager);
-		AGCECheatManager->CreateDebugWidget();
+		if(UAGCEDebugManager* DebugManager = Cast<UAGCEDebugManager>(CheatManager))
+		{
+			DebugManager->CreateDebugWidget();
+		}
 	}
 }

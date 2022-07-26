@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/CheatManager.h"
-#include "AGCECheatManager.generated.h"
+#include "AGCEDebugManager.generated.h"
 
 class UAGCEDebugWidget;
 /**
  * 
  */
 UCLASS()
-class ANDREIGRBCODEEXAMPLE_API UAGCECheatManager : public UCheatManager
+class ANDREIGRBCODEEXAMPLE_API UAGCEDebugManager : public UCheatManager
 {
 	GENERATED_BODY()
 
